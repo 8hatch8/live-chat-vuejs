@@ -1,8 +1,18 @@
 <template>
   <div class="container welcome">
-    <p>ようこそ!</p>
-    <LoginForm />
-    <SignupForm />
+    <p>Welcome River</p>
+    <div v-if="isRegistered">
+      <LoginForm />
+      <p class="change-form">新規登録は
+        <span @click="isRegistered = false">こちら</span>
+      をクリック</p>
+    </div>
+    <div v-if="!isRegistered">
+      <SignupForm />
+      <p class="change-form">アカウントをお持ちの方は
+        <span @click="isRegistered = true">こちら</span>
+      をクリック</p>
+    </div>
   </div>
 </template>
 
@@ -12,6 +22,11 @@ import LoginForm from '../components/LoginForm.vue'
 import SignupForm from '../components/SignupForm.vue'
 export default{
   components: { LoginForm, SignupForm },
+  data(){
+    return{
+      isRegistered:   true,
+    }
+  }
 }
 </script>
 
@@ -44,5 +59,9 @@ export default{
   }
   .welcome button {
     margin: 20px auto;
+  }
+  .change-form {
+    font-size: 14px;
+    margin: 10px;
   }
 </style>
