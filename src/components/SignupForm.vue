@@ -18,6 +18,7 @@
 
 <script>
 import axios from 'axios'
+import setItem from '../auth/setItem'
 
 export default {
   emits: ['redirectToChatroom'],

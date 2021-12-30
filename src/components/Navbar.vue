@@ -3,17 +3,47 @@
     <div>
       <p>こんにちは、<span class="name">{{ name }}</span>さん</p>
       <p class="email">{{ email }}</p>
+      <div class="error">{{ error }}</div>
     </div>
-    <button>ログアウト</button>
+    <button @click="logout">ログアウト</button>
   </nav>
 </template>
 
 <script>
+import axios from 'axios'
+import removeItem from '../auth/removeItem'
+
 export default {
   data(){
     return{
       email:      localStorage.getItem('uid'),
-      name:       localStorage.getItem('name')
+      name:       localStorage.getItem('name'),
+      error:      null,
+    }
+  },
+  methods:{
+    async logout(){
+      this.error = null
+      try {
+        const res = await axios.delete('http://localhost:3000/auth/sign_out', {
+          headers: {
+            uid:            this.email,
+            "access-token": localStorage.getItem("access-token"),
+            client:         localStorage.getItem("client")
+          }
+        })
+        if(!res){
+          throw new Error('ログアウトできませんでした')
+        }
+        if(!this.error){
+          console.log("ログアウトしました")
+          removeItem()
+          this.$router.push({ name: 'Welcome' })
+        }
+        return res
+      } catch(error) {
+        this.error = "ログアウトできませんでした"
+      }
     }
   }
 }
