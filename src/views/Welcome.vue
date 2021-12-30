@@ -2,13 +2,13 @@
   <div class="container welcome">
     <h3>River for Online Meetings</h3>
     <div v-if="isRegistered">
-      <LoginForm />
+      <LoginForm @redirectToChatroom="redirectToChatroom" />
       <p class="change-form">新規登録は
         <span @click="isRegistered = false">こちら</span>
       をクリック</p>
     </div>
     <div v-if="!isRegistered">
-      <SignupForm />
+      <SignupForm  @redirectToChatroom="redirectToChatroom" />
       <p class="change-form">アカウントをお持ちの方は
         <span @click="isRegistered = true">こちら</span>
       をクリック</p>
@@ -25,6 +25,11 @@ export default{
   data(){
     return{
       isRegistered:   true,
+    }
+  },
+  methods:{
+    redirectToChatroom(){
+      this.$router.push({ name: 'Chatroom' })
     }
   }
 }

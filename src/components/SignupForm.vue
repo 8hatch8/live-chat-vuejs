@@ -5,30 +5,35 @@
     <input type="email" required placeholder="メールアドレス" v-model="email">
     <input type="password" required placeholder="パスワード" v-model="password">
     <input type="password" required placeholder="もう一度パスワードを入力" v-model="passwordConfirmation">
-    <button>登録する</button>
 
-    <ul v-for="error in errors">
-      <li class="error">{{ error }}</li>
+    <ul>
+      <li class="error" v-for="message in errorMessages" >
+        {{ message }}
+      </li>
     </ul>
 
+    <button>登録する</button>
   </form>
 </template>
 
 <script>
 import axios from 'axios'
+
 export default {
+  emits: ['redirectToChatroom'],
+
   data(){
     return{
       name:                 "",
       email:                "",
       password:             "",
       passwordConfirmation: "",
-      errors:               [],
+      errorMessages:        [],
     }
   },
   methods:{
     async signUp(){
-      this.errors = []
+      this.errorMessages = []
       try{
         const res = await axios.post('http://localhost:3000/auth', {
           // パラメータ
@@ -38,13 +43,19 @@ export default {
           password_confirmation:   this.passwordConfirmation
           // railsではpassword_confirmation:として受け取る？
         })
+
         if(!res){
           throw new Error('アカウントを登録できませんでした')
         }
+
+        if(!this.error){
+          this.$emit('redirectToChatroom')
+        }
+
         console.log({ res })
         return res
       } catch (error) {
-        this.errors = error.response.data.errors.full_messages
+        this.errorMessages = error.response.data.errors.full_messages
       }
     }
   }
