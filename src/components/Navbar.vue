@@ -1,8 +1,8 @@
 <template>
   <nav>
     <div>
-      <p>Hello, UserNameさん</p>
-      <p class="email">ログイン：test@email.com</p>
+      <p>こんにちは、<span class="name">{{ name }}</span>さん</p>
+      <p class="email">{{ email }}</p>
     </div>
     <button>ログアウト</button>
   </nav>
@@ -10,9 +10,10 @@
 
 <script>
 export default {
-  date(){
+  data(){
     return{
-
+      email:      localStorage.getItem('uid'),
+      name:       localStorage.getItem('name')
     }
   }
 }

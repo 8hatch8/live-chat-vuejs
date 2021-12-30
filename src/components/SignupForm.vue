@@ -7,7 +7,7 @@
     <input type="password" required placeholder="もう一度パスワードを入力" v-model="passwordConfirmation">
 
     <ul>
-      <li class="error" v-for="message in errorMessages" >
+      <li class="error" v-for="(message, key) in errorMessages" :key="key" >
         {{ message }}
       </li>
     </ul>
@@ -49,6 +49,10 @@ export default {
         }
 
         if(!this.error){
+          localStorage.setItem('access-token', res.headers['access-token'])
+          localStorage.setItem('client', res.headers.client)
+          localStorage.setItem('uid', res.headers.uid)
+          localStorage.setItem('name', res.data.data.name)
           this.$emit('redirectToChatroom')
         }
 

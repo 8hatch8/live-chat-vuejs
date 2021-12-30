@@ -35,6 +35,11 @@ export default {
         }
 
         if(!this.error){
+          // ローカルストレージにデータを保存
+          localStorage.setItem('access-token', res.headers['access-token'])
+          localStorage.setItem('client', res.headers.client)
+          localStorage.setItem('uid', res.headers.uid)
+          localStorage.setItem('name', res.data.data.name)
           this.$emit('redirectToChatroom')
         }
 
