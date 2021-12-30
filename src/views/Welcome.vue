@@ -1,6 +1,6 @@
 <template>
   <div class="container welcome">
-    <p>Welcome River</p>
+    <h3>River for Online Meetings</h3>
     <div v-if="isRegistered">
       <LoginForm />
       <p class="change-form">新規登録は
