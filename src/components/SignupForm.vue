@@ -1,16 +1,14 @@
 <template>
   <h2>アカウント新規登録</h2>
-  <form @submit="signUp">
+  <form @submit.prevent="signUp">
     <input type="text" required placeholder="名前" v-model="name">
     <input type="email" required placeholder="メールアドレス" v-model="email">
     <input type="password" required placeholder="パスワード" v-model="password">
     <input type="password" required placeholder="もう一度パスワードを入力" v-model="passwordConfirmation">
     <button>登録する</button>
 
-    <ul>
-      <div v-for="error in errors">
-        <li class="error">{{ error }}</li>
-      </div>
+    <ul v-for="error in errors">
+      <li class="error">{{ error }}</li>
     </ul>
 
   </form>
