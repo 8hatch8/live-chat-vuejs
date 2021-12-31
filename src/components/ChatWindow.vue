@@ -106,4 +106,30 @@ export default {
     max-height: 400px;
     overflow: auto;
   }
+  .message {
+    position: relative;
+  }
+  .heart-container {
+    background: white;
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 30px;
+    min-width: 25px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(245, 245, 245);
+    padding: 1px 2px;
+    z-index: 2;
+    bottom: -7px;
+    right: 0px;
+    font-size: 9px;
+  }
+  .heart {
+    color: rgb(236, 29, 29);
+  }
+  .heart-count {
+    color: rgb(20, 19, 19);
+  }
 </style>
