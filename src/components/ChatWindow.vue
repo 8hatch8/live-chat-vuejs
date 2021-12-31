@@ -6,7 +6,10 @@
           <span class="name">{{ message.name }}</span>
           <div class="message" @dblclick="createLike(message.id)">
             {{ message.content }}
-            {{ message.likes.length }}
+            <div v-if="message.likes.length" class="heart-container">
+              <font-awesome-icon icon="heart" class="heart" />
+              <span class="heart-count" >{{ message.likes.length }}</span>
+            </div>
           </div>
           <span class="created-at">{{ message.created_at }}</span>
         </li>
