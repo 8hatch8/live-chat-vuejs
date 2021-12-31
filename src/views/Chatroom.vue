@@ -2,7 +2,7 @@
   <div class="container">
     <Navbar />
     <ChatWindow :messages="messages" />
-    <NewChatForm />
+    <NewChatForm @connectCable="connectCable" />
   </div>
 </template>
 
@@ -40,6 +40,13 @@ export default {
         console.log(err)
       }
     },
+    connectCable(message){
+      // Railsのreceiveメソッドを実行
+      this.messageChannel.perform('receive', {
+        message:  message,
+        email:    localStorage.getItem('uid')
+      })
+    }
   },
   mounted(){ // ライフサイクルフック:mounted -> ページが表示される直前
     // RailsのActionCableとコネクションを確立
