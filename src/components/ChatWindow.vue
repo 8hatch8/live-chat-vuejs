@@ -21,6 +21,7 @@
 <script>
 import axios from 'axios'
 export default {
+  emits:['connectCable'],
   props:['messages'],
   data(){
     return{
@@ -42,6 +43,8 @@ export default {
         if(!res){
           throw new Error('いいねできませんでした')
         }
+
+        this.$emit('connectCable')
 
       } catch(err) {
         console.log(err)
@@ -131,5 +134,11 @@ export default {
   }
   .heart-count {
     color: rgb(20, 19, 19);
+  }
+  .received .message::selection {
+    background: #eee;
+  }
+  .send .message::selection {
+    background: #677bb4;
   }
 </style>
