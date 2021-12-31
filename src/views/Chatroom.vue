@@ -2,6 +2,7 @@
   <div class="container">
     <Navbar />
     <ChatWindow :messages="messages" />
+    <NewChatForm />
   </div>
 </template>
 
@@ -9,9 +10,10 @@
 import Navbar from "../components/Navbar.vue"
 import ChatWindow from "../components/ChatWindow.vue"
 import axios from 'axios'
+import NewChatForm from '../components/NewChatForm.vue'
 
 export default {
-  components:{ Navbar, ChatWindow },
+  components:{ Navbar, ChatWindow, NewChatForm },
   data(){
     return{
       messages:     [],
