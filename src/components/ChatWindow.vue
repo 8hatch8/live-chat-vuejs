@@ -49,10 +49,10 @@ export default {
     margin-bottom: 2px;
     max-width: 400px;
   }
-  .sent {
+  .send {
     float: right;
   }
-  .sent .message {
+  .send .message {
     background: #677bb4;
     color: white;
     padding: 10px;
@@ -74,7 +74,7 @@ export default {
     margin-bottom: 20px;
     margin-left: 4px;
   }
-  .message {
+  .messages {
     max-height: 400px;
     overflow: auto;
   }
