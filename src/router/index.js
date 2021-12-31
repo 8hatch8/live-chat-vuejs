@@ -6,6 +6,8 @@ import Chatroom from '../views/Chatroom'
 // Validation
 import useValidate from '../auth/validate'
 const { refError, validate } = useValidate()
+
+// ログイン時のみ表示
 const requireAuth = async (to, from, next) => {
   const uid         = localStorage.getItem('uid')
   const client      = localStorage.getItem('client')
@@ -16,6 +18,7 @@ const requireAuth = async (to, from, next) => {
     next({ name: 'Welcome' })
     return
   }
+
   await validate()
 
   if(refError.value){
@@ -26,11 +29,32 @@ const requireAuth = async (to, from, next) => {
   }
 }
 
+// 非ログイン時のみ表示
+const noRequireAuth = async (to, from, next) => {
+  const uid         = localStorage.getItem('uid')
+  const client      = localStorage.getItem('client')
+  const accessToken = localStorage.getItem('access-token')
+
+  if(!uid & !client & !accessToken){
+    next()
+    return
+  }
+
+  await validate()
+
+  if(!refError.value){
+    next({ name: 'Chatroom' })
+  } else {
+    next()
+  }
+}
+
 const routes = [
   {
     path:         '/',
-    name:         'Welcome', // ページの名前
-    component:    Welcome // vueファイルの指定（上で定義）
+    name:         'Welcome',
+    component:    Welcome,
+    beforeEnter:  noRequireAuth
   },
   {
     path:         '/chatroom',

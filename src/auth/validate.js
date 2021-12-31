@@ -2,8 +2,9 @@ import axios from 'axios'
 import removeItem from './removeItem'
 // ref: CompositionAPI
 import { ref } from 'vue'
-
+// Error
 const refError = ref(null)
+
 const validate = async() => {
     refError.value = null
     const uid         = localStorage.getItem('uid')
@@ -24,6 +25,7 @@ const validate = async() => {
       }
 
       return res
+
     } catch(error) {
       refError.value = '認証に失敗しました'
       removeItem()
