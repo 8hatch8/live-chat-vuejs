@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Navbar />
-    <ChatWindow @connectCable="connectCable" :messages="messages" />
+    <ChatWindow @connectCable="connectCable" :messages="formattedMessages" />
     <NewChatForm @connectCable="connectCable" />
   </div>
 </template>
@@ -13,6 +13,9 @@ import ActionCable from 'actioncable'
 import Navbar from "../components/Navbar.vue"
 import ChatWindow from "../components/ChatWindow.vue"
 import NewChatForm from '../components/NewChatForm.vue'
+// 時間表記を変更
+import { formatDistanceToNow } from 'date-fns'
+import { ja } from 'date-fns/locale'
 
 
 export default {
@@ -22,6 +25,15 @@ export default {
       messages:     [],
     }
   },
+  computed: {
+    formattedMessages () {
+      if (!this.messages.length) { return [] }
+      return this.messages.map(message => {
+        let time = formatDistanceToNow(new Date(message.created_at), { locale: ja })
+        return { ...message, created_at: time }
+      })
+    }
+  },  
   methods:{
     async getMessages(){
       try {
