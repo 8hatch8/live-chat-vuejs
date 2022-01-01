@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Navbar />
-    <ChatWindow @connectCable="connectCable" :messages="formattedMessages" />
+    <ChatWindow @connectCable="connectCable" :messages="formattedMessages" ref="chatWindow"/>
     <NewChatForm @connectCable="connectCable" />
   </div>
 </template>
@@ -67,11 +67,15 @@ export default {
     this.messageChannel = cable.subscriptions.create('RoomChannel', {
       // 接続時の処理
       connected: () => {
-        this.getMessages()
+        this.getMessages().then(() => {
+          this.$refs.chatWindow.scrollToBottom()
+        })
       },
       // データ受信時
       received: () => {
-        this.getMessages()
+        this.getMessages().then(() => {
+          this.$refs.chatWindow.scrollToBottom()
+        })
       }
     })
   },
